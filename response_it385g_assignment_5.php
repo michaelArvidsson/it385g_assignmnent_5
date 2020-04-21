@@ -15,33 +15,48 @@
     }else{
         $paper="Morning_Edition";
     }
-    /* echo "<pre>";
+    
+    echo "<pre>";
     print_r($_POST);
-    echo "</pre>"; */
+    echo "</pre>";
+
  $xml = file_get_contents("https://wwwlab.iit.his.se/gush/XMLAPI/articleservice/articles?paper=".$paper);
     $dom = new DomDocument;
     $dom->preserveWhiteSpace = FALSE;
     $dom->loadXML($xml);
 
     $newspapers= $dom->getElementsByTagName('NEWSPAPER');
+    $articles= $dom->getElementsByTagName('NEWSPAPER');
+    echo "<tr><th id='headline'>Paper</th><th id='headline'>Subscribers</th><th id='headline'>Type</th><th id='head' colspan='6'>Article</th></tr>";
     foreach ($newspapers as $newspaper){
-      echo "<tr>";
- 
-      $attributes = $newspaper->attributes;
-      echo "<td>".$attributes['NAME']->value."</td>";
-
+      
+      echo "<td>".$newspaper->getAttribute("NAME")."</td>";
       echo "<td>".$newspaper->getAttribute("SUBSCRIBERS")."</td>";    
       echo "<td>".$newspaper->getAttribute("TYPE")."</td>";
-      
-      foreach ($newspaper->childNodes as $child){
+
+    
+    foreach ($newspaper->childNodes as $child){
+      if($child->getAttribute("DESCRIPTION")=='News'){
+        echo "<td style='background:yellow;'>";        
+      }else{
+        echo "<td style='background:lightblue'>";        
+      }
         $text=trim($child->nodeValue);
-        if($text!=""){
-            echo "<td>".$text."</td>";
+        if($text!=""){           
+            echo "ID: ";
+            echo "<span>";
+            echo $child->getAttribute("ID");
+            echo $child->getAttribute("TIME");
+            echo $child->getAttribute("DESCRIPTION");
+            echo "</span>";
+            echo $text;
+            echo "</td>";
         }
-    }      
+    }  
+        
       echo "</tr>";
       
-  }
+    }
   
 ?>
 </table>

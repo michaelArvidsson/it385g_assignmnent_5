@@ -4,9 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Newspaper article database</title>
+  <style>
+     #head {
+        background-color: White;;
+        color:darkslategrey;
+        font-size: 200%;
+        font-weight: bold;
+        letter-spacing: 5px;
+        text-align: center;
+        text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+        padding:10px;
+        margin-top:0px;
+        margin-bottom:20px;
+    }
+  form {
+        width:600px;
+        background-color: white;
+        padding:50px;
+        margin:auto;      
+        box-shadow: 2px 2px 4px 2px;
+    }
+    #form_body {
+        Width:400px;
+        margin:auto;
+        font-weight:bold;
+        font-size:15px;
+    }
+
+  </style>
 </head>
 <body>
-    <form metod='POST' action='response_it385g_assignment_5.php'>
+    <h1 id='head'>Newspaper article database</h1>
+    <form method='POST' action='response_it385g_assignment_5.php'>
+    <div id=form_body>
+    <select name='paper'>
+    
 <?php
  
     $xml = file_get_contents('https://wwwlab.iit.his.se/gush/XMLAPI/articleservice/papers');
@@ -16,16 +48,17 @@
     
     $newspapers= $dom->getElementsByTagName('NEWSPAPER');
     foreach ($newspapers as $newspaper){
-        echo $newspaper->getAttribute("NAME");
+    
+
+      echo "<option value='".$newspaper->getAttribute("TYPE")."'>";
+      echo $newspaper->getAttribute("NAME");       
+      echo "</option>";
     }
-
-    echo "<select name='paper'>";
-    echo "<option value='".$attributes['TYPE']->value."'>";  
-    echo "</select>";
-
-  
+     
 ?>
-<input style='margin-left:10px'; type='submit' name='submitbutton' value='Submit!'>
-  </form>
+    </select>
+    <input style='margin-left:10px'; type='submit' name='submitbutton' value='Show result'>
+    </div>
+    </form>
 </body>
 </html>
