@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Newspaper article database</title>
   <style>
+    body {
+      width:100%;
+    }
     #head {
         background-color: #EDECE8;
         color:darkslategrey;
@@ -15,8 +18,7 @@
         text-align: center;
         text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
         padding:10px;
-        margin-top:0px;
-        margin-bottom:0px;
+        margin:0px;
     }
     /* #headline {
         background-color: #EDECE8;
@@ -34,48 +36,52 @@
         color:darkslategrey;
         font-weight:bold;
         font-size:120%;
-        transform: rotate(-90deg);
+        transform: rotate(180deg);
         white-space: nowrap;
         text-align: center;
         text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+        border-right:0px;
     }
     #head_b {
         color:darkslategrey;
-        transform: rotate(-90deg);
+        transform: rotate(180deg);
         white-space: nowrap;
         text-align: center;
+        border-left:0px;
     }
     table {
-      border-collapse: collapse;
-      background-color: #EDECE8;
+        border-collapse: collapse;
+        background-color: #EDECE8;
     }
     h3 {
-      color:#525252;
-      text-align:center;
-      text-decoration: underline;
+        color:#525252;
+        text-align:center;
+        text-decoration: underline;
       
     }
     #article{
-      width:350px;
-      padding:10px;
-      margin: 10px;
-      border-radius: 5px;      
+        width:350px;
+        padding:10px;
+        margin: 10px;
+        border-radius: 5px;      
     }
     tr {
-      border-bottom: 1px solid black;
+        border-bottom: 1px solid black;
     }
-    span {
-      color:darkslategrey;
-      margin:20px;
+    #article_att {
+        color:darkslategrey;
+        margin:20px;
     }
     p {
-      border: 1px dashed grey;
-      border-radius: 5px;
-      padding: 5px;
-      margin-top:0px;
-      margin-bottom: 20px;
-      
-    }  
+        border: 1px dashed grey;
+        border-radius: 5px;
+        padding: 5px;
+        margin-top:0px;
+        margin-bottom: 20px; 
+    } 
+    span {
+      margin: 5px;
+    } 
   </style>
 </head>
 <body>
@@ -102,13 +108,13 @@
    
     foreach ($newspapers as $newspaper){
         echo "<tr>";
-        echo "<td id='head_a'>".$newspaper->getAttribute("NAME")."</td>";
-        echo "<td id='head_b'><span>";
-        echo "Subsbribers: ";
-        echo $newspaper->getAttribute("SUBSCRIBERS");
+        echo "<td id='head_a'><span style='writing-mode: vertical-lr;'>".$newspaper->getAttribute("NAME")."</span></td>";
+        echo "<td id='head_b'><span style='writing-mode: vertical-lr;'>";
+        echo "Edition: ";
+        echo $newspaper->getAttribute("TYPE");
         echo "</span>";
-        echo "<span>edition: ";    
-        echo $newspaper->getAttribute("TYPE")."</span></td>";
+        echo "<span style='writing-mode: vertical-lr;'>Subscribers: ";    
+        echo $newspaper->getAttribute("SUBSCRIBERS")."</span></td>";
 
         foreach ($newspaper->childNodes as $article){
             echo "<td style='vertical-align:top; border:0px;'>";
@@ -118,14 +124,14 @@
               echo "<div id='article'style='background:#ede1ec; box-shadow: 2px 2px 5px 2px purple;'>";        
             }
             echo "<div style='border-bottom: 1px solid grey; text-align:center;'>";
-            echo "<span>";
+            echo "<span id='article_att'>";
             echo "ID: ";
             echo $article->getAttribute("ID");
             echo "</span>";
-            echo "<span>";
+            echo "<span id='article_att'>";
             echo $article->getAttribute("DESCRIPTION");
             echo "</span>";
-            echo "<span>";
+            echo "<span id='article_att'>";
             echo $article->getAttribute("TIME");
             echo "</span>";
             echo "</div>";
@@ -144,14 +150,11 @@
                     echo "</p>";
                   }  
                 }
-              }
-              echo "</div>";
-              echo "</td>";
+            }
+            echo "</div>";
+            echo "</td>";
         }         
         echo "</tr>";
-       /*  echo "<pre>";
-        echo print_r($text);
-        echo "</pre>";     */
     }  
 ?>
 </table>
