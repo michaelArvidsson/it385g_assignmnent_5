@@ -6,8 +6,9 @@
   <title>Newspaper article database</title>
   <style>
      #head {
-        background-color: White;;
+        background-color: #EDECE8;
         color:darkslategrey;
+        width:100%;
         font-size: 200%;
         font-weight: bold;
         letter-spacing: 5px;
@@ -15,11 +16,11 @@
         text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
         padding:10px;
         margin-top:0px;
-        margin-bottom:20px;
+        margin-bottom:10px;
     }
   form {
         width:600px;
-        background-color: white;
+        background-color: #EDECE8;
         padding:50px;
         margin:auto;      
         box-shadow: 2px 2px 4px 2px;
@@ -37,6 +38,7 @@
     <h1 id='head'>Newspaper article database</h1>
     <form method='POST' action='response_it385g_assignment_5.php'>
     <div id=form_body>
+      <label style="margin-right:10px">Select Newspaper</label>
     <select name='paper'>
     
 <?php
@@ -45,7 +47,7 @@
     $dom = new DomDocument;
     $dom->preserveWhiteSpace = FALSE;
     $dom->loadXML($xml);
-    
+    echo "<option value=''>---";
     $newspapers= $dom->getElementsByTagName('NEWSPAPER');
     foreach ($newspapers as $newspaper){
     
