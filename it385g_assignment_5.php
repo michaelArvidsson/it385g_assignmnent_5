@@ -39,27 +39,25 @@
     <form method='POST' action='response_it385g_assignment_5.php'>
     <div id=form_body>
       <label style="margin-right:10px">Select Newspaper</label>
-    <select name='paper'>
+      <select name='paper'>
     
 <?php
  
-    $xml = file_get_contents('https://wwwlab.iit.his.se/gush/XMLAPI/articleservice/papers');
-    $dom = new DomDocument;
-    $dom->preserveWhiteSpace = FALSE;
-    $dom->loadXML($xml);
-    echo "<option value=''>---";
-    $newspapers= $dom->getElementsByTagName('NEWSPAPER');
-    foreach ($newspapers as $newspaper){
-    
-
-      echo "<option value='".$newspaper->getAttribute("TYPE")."'>";
-      echo $newspaper->getAttribute("NAME");       
-      echo "</option>";
-    }
+      $xml = file_get_contents('https://wwwlab.iit.his.se/gush/XMLAPI/articleservice/papers');
+      $dom = new DomDocument;
+      $dom->preserveWhiteSpace = FALSE;
+      $dom->loadXML($xml);
+      echo "<option value=''>---";
+      $newspapers= $dom->getElementsByTagName('NEWSPAPER');
+      foreach ($newspapers as $newspaper){
+        echo "<option value='".$newspaper->getAttribute("TYPE")."'>";
+        echo $newspaper->getAttribute("NAME");       
+        echo "</option>";
+      }
      
 ?>
-    </select>
-    <input style='margin-left:10px'; type='submit' name='submitbutton' value='Show result'>
+      </select>
+      <input style='margin-left:10px'; type='submit' name='submitbutton' value='Show result'>
     </div>
     </form>
 </body>

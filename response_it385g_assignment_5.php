@@ -20,22 +20,11 @@
         padding:10px;
         margin:0px;
     }
-    /* #headline {
-        background-color: #EDECE8;
-        color:darkslategrey;
-        font-size: 120%;
-        font-weight: bold;
-        letter-spacing: 5px;
-        text-align: center;
-        text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
-        padding:10px;
-        margin-top:0px;
-        margin-bottom:0px;
-    } */
     #head_a {
         color:darkslategrey;
         font-weight:bold;
         font-size:120%;
+        max-width: 40px;
         transform: rotate(180deg);
         white-space: nowrap;
         text-align: center;
@@ -44,6 +33,7 @@
     }
     #head_b {
         color:darkslategrey;
+        max-width: 60px;
         transform: rotate(180deg);
         white-space: nowrap;
         text-align: center;
@@ -54,13 +44,12 @@
         background-color: #EDECE8;
     }
     h3 {
-        color:#525252;
+        color:darkslategrey;
         text-align:center;
         text-decoration: underline;
       
     }
     #article{
-        width:350px;
         padding:10px;
         margin: 10px;
         border-radius: 5px;      
@@ -105,10 +94,10 @@
     $dom->loadXML($xml);
 
     $newspapers= $dom->getElementsByTagName('NEWSPAPER');
-   
     foreach ($newspapers as $newspaper){
         echo "<tr>";
-        echo "<td id='head_a'><span style='writing-mode: vertical-lr;'>".$newspaper->getAttribute("NAME")."</span></td>";
+        echo "<td id='head_a'><span style='writing-mode: vertical-lr;'>";
+        echo $newspaper->getAttribute("NAME")."</span></td>";
         echo "<td id='head_b'><span style='writing-mode: vertical-lr;'>";
         echo "Edition: ";
         echo $newspaper->getAttribute("TYPE");
@@ -116,9 +105,9 @@
         echo "<span style='writing-mode: vertical-lr;'>Subscribers: ";    
         echo $newspaper->getAttribute("SUBSCRIBERS")."</span></td>";
 
-        foreach ($newspaper->childNodes as $article){
-            echo "<td style='vertical-align:top; border:0px;'>";
-            if($article->getAttribute("DESCRIPTION")=='News'){
+        foreach ($newspaper->childNodes as $child){
+            echo "<td style='width:20%; vertical-align:top; border:0px;'>";
+            if($child->getAttribute("DESCRIPTION")=='News'){
               echo "<div id='article' style='background:#ffd28a; box-shadow: 2px 2px 5px 2px darkorange;'>";        
             }else{
               echo "<div id='article'style='background:#ede1ec; box-shadow: 2px 2px 5px 2px purple;'>";        
@@ -126,17 +115,17 @@
             echo "<div style='border-bottom: 1px solid grey; text-align:center;'>";
             echo "<span id='article_att'>";
             echo "ID: ";
-            echo $article->getAttribute("ID");
+            echo $child->getAttribute("ID");
             echo "</span>";
             echo "<span id='article_att'>";
-            echo $article->getAttribute("DESCRIPTION");
+            echo $child->getAttribute("DESCRIPTION");
             echo "</span>";
             echo "<span id='article_att'>";
-            echo $article->getAttribute("TIME");
+            echo $child->getAttribute("TIME");
             echo "</span>";
             echo "</div>";
-            $attributes = $article->attributes;
-            foreach ($article->childNodes as $text){
+            $attributes = $child->attributes;
+            foreach ($child->childNodes as $text){
                 if($text->tagName == "HEADING"){
                     foreach($text->childNodes as $heading){
                       echo "<h3>";
